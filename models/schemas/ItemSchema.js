@@ -11,20 +11,20 @@ const ItemSchema = new Schema({
     required: true,
   },
   quantity: {
-    type: String,
+    type: Number,
     required: true,
   },
   unitPrice: {
-    type: String,
+    type: Number,
     required: true,
   },
   description: {
     type: String,
     required: true,
   },
-  categoryId: {
-    type: Integer,
-    required: true,
+  category: {
+    type: Schema.Types.ObjectId,
+    ref: "category",
   },
 });
 
