@@ -1,18 +1,17 @@
 const express = require("express");
-const db = require("./config");
-const User = require("./models/User");
+const bodyParser = require("body-parser");
+const {signUp} = require("./controllers/userController");
+const router = require("express-promise-router")();
 
-db.once("open", () => {
-  console.log("we are connected");
-});
-db.on("error", (error) => {
-  console.log("connection has been timedout" + `${error}`);
-});
+const app = express();
 
-const user = new User({
-  email: "test@gmail,com",
-  password: "test123",
-  role: "admin",
-});
+app.use(bodyParser.json());
+router.route("/auth/signup").post(signUp);
 
-user.save();
+app.use(router);
+
+const port = 3000;
+
+app.listen(port,() => {
+  console.log(`Listening on port${port}`)
+});
