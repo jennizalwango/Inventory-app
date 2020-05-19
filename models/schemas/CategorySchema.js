@@ -10,6 +10,12 @@ const CategorySchema = new Schema({
     type: String,
     required: true,
   },
+  items: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "item",
+    },
+  ],
 });
 
 module.exports = CategorySchema;
