@@ -1,18 +1,15 @@
 const express = require("express");
-const db = require("./config");
-const User = require("./models/User");
+const bodyParser = require("body-parser");
+const UsersRouter = require("./routers/UserRouter");
+const db = require("./config")
 
-db.once("open", () => {
-  console.log("we are connected");
-});
-db.on("error", (error) => {
-  console.log("connection has been timedout" + `${error}`);
-});
+const app = express();
 
-const user = new User({
-  email: "test@gmail,com",
-  password: "test123",
-  role: "admin",
-});
+app.use(bodyParser.json());
+app.use("/api/v1", UsersRouter);
 
-user.save();
+const port = 3000;
+
+app.listen(port,() => {
+  console.log(`Listening on port ${port}`)
+});
